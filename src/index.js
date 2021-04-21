@@ -15,12 +15,14 @@ const rehypeParse = require('rehype-parse');
 // const rehype = require('rehype');
 const rehypeStringify = require('rehype-stringify');
 
-const testPlugin = require('../plugin/test');
+const yuquePlugin = require('../plugin/yuque_render');
+const yueuqIndent = require('../plugin/yuque_indent');
 const toVfile = require('to-vfile');
 
 const processor = unified()
     .use(rehypeParse)
-    .use(testPlugin)
+    .use(yueuqIndent)
+    .use(yuquePlugin)
     .use(rehypeStringify, {
         closeSelfClosing: true,
     })
@@ -28,7 +30,7 @@ const processor = unified()
 // process.stdin.pipe(stream(processor)).pipe(process.stdout);
 
 console.log('1111');
-processor.process(vfile.readSync('assets/test.html'),
+processor.process(vfile.readSync('assets/test2.html'),
     function (err, file) {
         // console.log(file);
         if (err) throw (err);

@@ -1,8 +1,9 @@
 
 const visit = require('unist-util-visit');
 const visitp = require('unist-util-visit-parents');
+const util = require('../util/util')
 
-function test() {
+function yuque() {
     return transformer;
     function transformer(tree) {
         visit(tree, (node) => node.tagName == 'card', visitor);
@@ -44,9 +45,16 @@ function customBuilder(type, name, data) {
     switch (type) {
         case 'inline':
             if (name == 'checkbox') {
-                return Element('input', [], {
-                    "type": "checkbox",
-                    "checked": data,
+                // return Element('input', [], {
+                // "type": "checkbox",
+                // "checked": data,
+                // });
+                return util.Element({
+                    tagName: "input",
+                    properties: {
+                        type: "checkbox",
+                        checked: data,
+                    },
                 });
             }
             break;
@@ -56,23 +64,24 @@ function customBuilder(type, name, data) {
                 "value": "localdoc",
             };
     }
-    return Text(`当前暂时不支持的标签: ${type}->${name}`);
+    // return Text(`当前暂时不支持的标签: ${type}->${name}`);
+    return util.Text(`Not supported card: ${type}->${name}`);
 }
 
-function Element(tagName, children, properties) {
-    return {
-        "type": 'element',
-        'tagName': tagName || 'div',
-        'properties': properties || {},
-        'children': children,
-    }
-}
+// function Element(tagName, children, properties) {
+//     return {
+//         "type": 'element',
+//         'tagName': tagName || 'div',
+//         'properties': properties || {},
+//         'children': children,
+//     }
+// }
 
-function Text(value) {
-    return {
-        "type": "text",
-        "value": value,
-    };
-}
+// function Text(value) {
+//     return {
+//         "type": "text",
+//         "value": value,
+//     };
+// }
 
-module.exports = test
+module.exports = yuque
