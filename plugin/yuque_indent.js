@@ -1,6 +1,6 @@
 
-const visit = require('unist-util-visit');
-const util = require('../util/util')
+import { visit, SKIP } from 'unist-util-visit'
+import util from '../util/util.js'
 
 /// fix yuque <li> indent
 /// by wrapping in ul/ol
@@ -21,7 +21,7 @@ function yuque() {
                     node.tagName,
                     node.properties,
                 );
-                return visit.SKIP;
+                return SKIP;
             }
         }
     }
@@ -45,4 +45,5 @@ function buildIndent(intent, children, tagName, properties) {
     ];
 }
 
-module.exports = yuque;
+// module.exports = yuque;
+export default yuque;

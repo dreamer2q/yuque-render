@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "name": "yuque-render",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "dependencies": {
+    "rehype": "^11.0.0",
+    "rehype-parse": "^7.0.1",
+    "to-vfile": "^6.1.0",
+    "unified": "^9.2.1",
+    "unist-util-visit": "^3.0.0",
+    "vfile-reporter": "^6.0.2"
+  }
+}

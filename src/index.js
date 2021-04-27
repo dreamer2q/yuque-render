@@ -1,27 +1,25 @@
-const unified = require('unified');
-// const stream = require('unified-stream')
-// const markdown = require('remark-parse')
-// const slug = require('remark-slug')
-// const toc = require('remark-toc')
-// const remark2rehype = require('remark-rehype')
-// const doc = require('rehype-document')
-// const html = require('rehype-stringify')
-// const format = require('rehype-format');
-const vfile = require('to-vfile');
-const report = require('vfile-reporter')
+// const unified = require('unified')
+// const vfile = require('to-vfile')
+// const report = require('vfile-reporter')
+// const rehypeParse = require('rehype-parse')
+// const rehypeStringify = require('rehype-stringify')
+// import * as unified from 'unified'
+import unified from 'unified'
+import vfile from 'to-vfile'
+import report from 'vfile-reporter'
+import rehypeParse from 'rehype-parse'
+import rehypeStringify from 'rehype-stringify'
 
-// const visit = require('unist-util-visit');
-const rehypeParse = require('rehype-parse');
-// const rehype = require('rehype');
-const rehypeStringify = require('rehype-stringify');
+// const yuquePlugin = require('../plugin/yuque_render');
+// const yueuqIndent = require('../plugin/yuque_indent');
 
-const yuquePlugin = require('../plugin/yuque_render');
-const yueuqIndent = require('../plugin/yuque_indent');
-const toVfile = require('to-vfile');
+import yuquePlugin from '../plugin/yuque_render.js'
+import yuqueIndent from '../plugin/yuque_indent.js'
+
 
 const processor = unified()
     .use(rehypeParse)
-    .use(yueuqIndent)
+    .use(yuqueIndent)
     .use(yuquePlugin)
     .use(rehypeStringify, {
         closeSelfClosing: true,

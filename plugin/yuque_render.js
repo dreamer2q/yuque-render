@@ -1,7 +1,7 @@
+import { visit, SKIP } from 'unist-util-visit'
 
-const visit = require('unist-util-visit');
-const visitp = require('unist-util-visit-parents');
-const util = require('../util/util')
+import util from '../util/util.js'
+
 
 function yuque() {
     return transformer;
@@ -21,7 +21,7 @@ function yuque() {
             }
             children = [child];
             node.children = children;
-            return visit.SKIP;
+            return SKIP;
         };
         console.log('good');
     }
@@ -84,4 +84,6 @@ function customBuilder(type, name, data) {
 //     };
 // }
 
-module.exports = yuque
+// module.exports = yuque
+
+export default yuque;

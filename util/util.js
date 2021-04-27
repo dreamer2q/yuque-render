@@ -1,6 +1,6 @@
-const { stack } = require("vfile-message");
+import stack from "vfile-message"
 
-module.exports = {
+export default {
     Element: function ({ tagName, children, properties }) {
         return {
             'type': "element",
