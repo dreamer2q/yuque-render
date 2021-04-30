@@ -1,6 +1,6 @@
 
 const visit = require('unist-util-visit');
-const util = require('../util/util')
+const util = require('../util/util');
 
 /// fix yuque <li> indent
 /// by wrapping in ul/ol

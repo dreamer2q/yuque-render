@@ -1,31 +1,30 @@
 const unified = require('unified');
-// const stream = require('unified-stream')
-// const markdown = require('remark-parse')
-// const slug = require('remark-slug')
-// const toc = require('remark-toc')
-// const remark2rehype = require('remark-rehype')
-// const doc = require('rehype-document')
-// const html = require('rehype-stringify')
-// const format = require('rehype-format');
 const vfile = require('to-vfile');
-const report = require('vfile-reporter')
+const report = require('vfile-reporter');
 
-// const visit = require('unist-util-visit');
-const rehypeParse = require('rehype-parse');
-// const rehype = require('rehype');
-const rehypeStringify = require('rehype-stringify');
+const parse = require('@starptech/rehype-webparser');
+const toHtml = require('hast-util-to-html');
 
 const yuquePlugin = require('../plugin/yuque_render');
 const yueuqIndent = require('../plugin/yuque_indent');
+const yuqueLakeId = require('../plugin/yuque_lakeid');
 const toVfile = require('to-vfile');
 
+function stringify() {
+    this.Compiler = compiler;
+
+    function compiler(tree) {
+        return toHtml(tree);
+    }
+}
+
 const processor = unified()
-    .use(rehypeParse)
+    .use(parse)
+    .use(yuqueLakeId)
     .use(yueuqIndent)
     .use(yuquePlugin)
-    .use(rehypeStringify, {
-        closeSelfClosing: true,
-    })
+    .use(stringify);
+
 
 // process.stdin.pipe(stream(processor)).pipe(process.stdout);
 
@@ -35,7 +34,7 @@ processor.process(vfile.readSync('assets/test2.html'),
         // console.log(file);
         if (err) throw (err);
         console.error(report(file));
-        file.path = './dist/a'
+        file.path = './dist/a';
         file.extname = '.html';
         vfile.writeSync(file);
     }
