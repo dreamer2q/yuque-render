@@ -1,4 +1,4 @@
-import { visit, SKIP } from 'unist-util-visit'
+import { visit, SKIP, CONTINUE } from 'unist-util-visit'
 
 import util from '../util/util.js'
 
@@ -10,19 +10,10 @@ function yuque() {
         function visitor(node, index, parent) {
             console.log(`type=>${node.type}, ${node.tagName}, index=>${index}, parent=>${parent.type}, ${parent.tagName}`); //,parent);
 
-            var children = [];
-            // var child;
-            // if (node.children.length == 0) {
-            // 使用properties
-            // child = propertyHandler(node.properties);
-            // } else {
-            // var element = node.children[0];
-            var child = cardHandler(node.properties);
-            // }
-            // children = [child];
-            // node.children = children;
+            // var children = [];
+            const child = cardHandler(node.properties);
             parent.children[index] = child;
-            return visit.SKIP;
+            return SKIP;
         };
         console.log('good');
     }
@@ -48,22 +39,26 @@ function cardHandler(card) {
 }
 
 function customBuilder(type, name, data) {
-    switch (type) {
-        case 'inline':
-            if (name == 'checkbox') {
-                // return Element('input', [], {
-                // "type": "checkbox",
-                // "checked": data,
-                // });
-                return util.Element({
-                    tagName: "input",
-                    properties: {
-                        type: "checkbox",
-                        checked: data,
-                    },
-                });
-            }
-            break;
+    switch (name) {
+        // case 'table':
+        // console.log('table');
+        // return lakeParser(data);
+        // return util.Text('不支持的表格');
+        case 'checkbox':
+            return util.Element({
+                tagName: "input",
+                properties: {
+                    type: "checkbox",
+                    checked: data,
+                },
+            });
+        case 'image':
+            return util.Element({
+                tagName: "img",
+                properties: {
+                    src: data.src,
+                },
+            });
         case 'localdoc':
             return {
                 "type": "text",

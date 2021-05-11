@@ -1,7 +1,5 @@
-
-import { visit } from 'unist-util-visit'
-// import { util } from '../util/util'
-import util from '../util/util.js'
+import { visit, CONTINUE } from 'unist-util-visit'
+// import util from '../util/util.js'
 
 function yuque() {
     return transform;
@@ -13,7 +11,7 @@ function yuque() {
             if (attr) {
                 delete attr["dataLakeId"];
             }
-            return visit.CONTINUE;
+            return CONTINUE;
         }
     }
 }
