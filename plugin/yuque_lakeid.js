@@ -1,5 +1,7 @@
-const visit = require('unist-util-visit');
-const util = require('../util/util')
+
+import { visit } from 'unist-util-visit'
+// import { util } from '../util/util'
+import util from '../util/util.js'
 
 function yuque() {
     return transform;
@@ -16,4 +18,4 @@ function yuque() {
     }
 }
 
-module.exports = yuque;
+export default yuque

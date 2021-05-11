@@ -7,14 +7,16 @@
 import unified from 'unified'
 import vfile from 'to-vfile'
 import report from 'vfile-reporter'
-import rehypeParse from 'rehype-parse'
-import rehypeStringify from 'rehype-stringify'
+
+import parse from '@starptech/rehype-webparser'
+import toHtml from 'hast-util-to-html'
 
 // const yuquePlugin = require('../plugin/yuque_render');
 // const yueuqIndent = require('../plugin/yuque_indent');
 
 import yuquePlugin from '../plugin/yuque_render.js'
 import yuqueIndent from '../plugin/yuque_indent.js'
+import yuqueLakeId from '../plugin/yuque_lakeid.js'
 
 
 function stringify() {
@@ -28,7 +30,7 @@ function stringify() {
 const processor = unified()
     .use(parse)
     .use(yuqueLakeId)
-    .use(yueuqIndent)
+    .use(yuqueIndent)
     .use(yuquePlugin)
     .use(stringify);
 

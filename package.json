@@ -6,6 +6,7 @@
     "start": "node ./src/index.js"
   },
   "dependencies": {
+    "@starptech/rehype-webparser": "^0.10.0",
     "rehype": "^11.0.0",
     "rehype-parse": "^7.0.1",
     "to-vfile": "^6.1.0",
