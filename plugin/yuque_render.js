@@ -11,17 +11,18 @@ function yuque() {
             console.log(`type=>${node.type}, ${node.tagName}, index=>${index}, parent=>${parent.type}, ${parent.tagName}`); //,parent);
 
             var children = [];
-            var child;
-            if (node.children.length == 0) {
-                // 使用properties
-                child = propertyHandler(node.properties);
-            } else {
-                var element = node.children[0];
-                var child = cardHandler(element);
-            }
-            children = [child];
-            node.children = children;
-            return SKIP;
+            // var child;
+            // if (node.children.length == 0) {
+            // 使用properties
+            // child = propertyHandler(node.properties);
+            // } else {
+            // var element = node.children[0];
+            var child = cardHandler(node.properties);
+            // }
+            // children = [child];
+            // node.children = children;
+            parent.children[index] = child;
+            return visit.SKIP;
         };
         console.log('good');
     }
@@ -35,6 +36,11 @@ function propertyHandler(prop) {
 }
 
 function cardHandler(card) {
+    if (card.name == 'hr') {
+        return util.Element({
+            tagName: 'hr',
+        });
+    }
     var valueStr = card.value.substring(5);
     var jsonStr = decodeURIComponent(valueStr);
     var json = JSON.parse(jsonStr);

@@ -17,13 +17,21 @@ import yuquePlugin from '../plugin/yuque_render.js'
 import yuqueIndent from '../plugin/yuque_indent.js'
 
 
+function stringify() {
+    this.Compiler = compiler;
+
+    function compiler(tree) {
+        return toHtml(tree);
+    }
+}
+
 const processor = unified()
-    .use(rehypeParse)
-    .use(yuqueIndent)
+    .use(parse)
+    .use(yuqueLakeId)
+    .use(yueuqIndent)
     .use(yuquePlugin)
-    .use(rehypeStringify, {
-        closeSelfClosing: true,
-    })
+    .use(stringify);
+
 
 // process.stdin.pipe(stream(processor)).pipe(process.stdout);
 
@@ -33,7 +41,7 @@ processor.process(vfile.readSync('assets/test2.html'),
         // console.log(file);
         if (err) throw (err);
         console.error(report(file));
-        file.path = './dist/a'
+        file.path = './dist/a';
         file.extname = '.html';
         vfile.writeSync(file);
     }
