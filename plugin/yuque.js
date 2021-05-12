@@ -13,7 +13,8 @@ export default function lakeParser(input) {
         .use(yuqueIndent)
         .use(yuquePlugin);
 
-    return processor.parse(input);
+    let tree =  processor.parse(input);
+    return tree.children[0];
 }
 
 
